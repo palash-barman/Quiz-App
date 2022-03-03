@@ -11,10 +11,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Icon> _scoreTrackar = [];
   int _quetionIndex = 0;
+
   int _totalScore = 0;
   bool aanswerWasSelected = false;
   bool endofQuiz = false;
   bool curentSelected = false;
+
 
   void questionAnswerd(bool answerScore) {
     setState(() {
@@ -47,6 +49,7 @@ class _HomePageState extends State<HomePage> {
   void naxtQuestion() {
     setState(() {
       _quetionIndex++;
+     
       aanswerWasSelected = false;
       curentSelected = false;
     });
@@ -57,6 +60,7 @@ class _HomePageState extends State<HomePage> {
 
   void _restQuiz() {
     setState(() {
+   
       _quetionIndex = 0;
       _scoreTrackar = [];
       _totalScore = 0;
@@ -90,8 +94,17 @@ class _HomePageState extends State<HomePage> {
                         height: 25.0,
                       ),
                     if (_scoreTrackar.length > 0) ..._scoreTrackar
+                    
+                 
                   ],
                 ),
+                
+                Container(
+                    padding: EdgeInsets.all(5),
+                    child: Text("Total Questions : ${_quetionIndex+1} /${_questions.length}",
+                    style: TextStyle(fontSize: 25,color: Colors.pink,fontWeight: FontWeight.bold),
+                    )),
+                
                 Container(
                   height: 150,
                   width: double.infinity,
@@ -116,16 +129,21 @@ class _HomePageState extends State<HomePage> {
                         as List<Map<String, dynamic>>)
                     .map((answer) => Answer(
                           answercolor: aanswerWasSelected
-                              ? answer['score']
-                                  ? Colors.green
-                                  : Colors.red
-                              : Colors.black12,
+                                ? answer['score']
+
+                                  ? Color(0xff78a064)
+                               : Color(0xff354f90)
+                               : Colors.black26,
                           answerText: answer['answerText'],
                           answerontab: () {
+
                             if (aanswerWasSelected) {
                               return;
+                              // return;
                             }
                             questionAnswerd(answer['score']);
+
+
                           },
                         )),
                 Container(
@@ -151,21 +169,26 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: Text(
-                    '${_totalScore}/${_questions.length}',
-                    style: TextStyle(
-                        color: Color(0xff051db4),
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                SizedBox(height: 15,),
+                
+                
+                // Container(
+                //   padding: EdgeInsets.all(20.0),
+                //   child: Text(
+                //     '${_totalScore}/${_questions.length}',
+                //     style: TextStyle(
+                //         color: Color(0xff051db4),
+                //         fontSize: 40.0,
+                //         fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+                
+                
                 if (aanswerWasSelected && !endofQuiz)
                   Container(
                     width: double.infinity,
                     height: 100,
-                    color: curentSelected ? Colors.green : Colors.red,
+                    color: curentSelected ? Colors.black26 : Colors.black12,
                     child: Center(
                       child: Text(
                         curentSelected
@@ -174,7 +197,8 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color:curentSelected? Color(0xff35a107):Color(
+                              0xffc70b0b),
                         ),
                       ),
                     ),
@@ -207,77 +231,85 @@ class _HomePageState extends State<HomePage> {
 
 final List<Map<String, dynamic>> _questions = [
   {
-    'question': 'How long is New Zealand’s Ninety Mile Beach?',
+    'question': 'কম্পিউটার মানুষের ভাষা কীভাবে বুঝতে পারে?',
     'answers': [
-      {'answerText': '88km, so 55 miles long.', 'score': true},
-      {'answerText': '55km, so 34 miles long.', 'score': false},
-      {'answerText': '90km, so 56 miles long.', 'score': false},
+      {'answerText': 'সরাসরি বুঝতে পারে', 'score': false},
+      {'answerText': 'আংশিক বুঝতে পারে', 'score': false},
+      {'answerText': 'যান্ত্রিক ভাষায় রুপান্তরিত হলে বুঝতে পারে', 'score': true},
     ],
   },
   {
     'question':
-        'In which month does the German festival of Oktoberfest mostly take place?',
+        'প্রোগ্রামের ভিত্তি কোনটি ?',
     'answers': [
-      {'answerText': 'January', 'score': false},
-      {'answerText': 'October', 'score': false},
-      {'answerText': 'September', 'score': true},
+      {'answerText': 'সুডোকোড', 'score': false},
+      {'answerText': 'ডিবাগিং', 'score': false},
+      {'answerText': 'কোডিং', 'score': true},
     ],
   },
   {
-    'question': 'Who composed the music for Sonic the Hedgehog 3?',
+    'question': 'কম্পিউটার প্রোগ্রামিং ভাষাকে কয়টি ভাগে ভাগ করা হয়?',
     'answers': [
-      {'answerText': 'Britney Spears', 'score': false},
-      {'answerText': 'Timbaland', 'score': false},
-      {'answerText': 'Michael Jackson', 'score': true},
+      {'answerText': ' ২ ভাগে', 'score': false},
+      {'answerText': '৪ ভাগে', 'score': false},
+      {'answerText': ' ৫ ভাগে ', 'score': true},
     ],
   },
   {
-    'question': 'In Georgia (the state), it’s illegal to eat what with a fork?',
+    'question': 'দ্বিতীয় প্রজন্মের ভাষা কোনটি?',
     'answers': [
-      {'answerText': 'Hamburgers', 'score': false},
-      {'answerText': 'Fried chicken', 'score': true},
-      {'answerText': 'Pizza', 'score': false},
+      {'answerText': 'যান্ত্রিক ভাষা', 'score': false},
+      {'answerText': 'অ্যাসেম্বলি ভাষা', 'score': true},
+      {'answerText': 'নিম্নস্তরের ভাষা ', 'score': false},
     ],
   },
   {
     'question':
-        'Which part of his body did musician Gene Simmons from Kiss insure for one million dollars?',
+        'কিউবেসিক উদ্ভাবন করেছেন কে?',
     'answers': [
-      {'answerText': 'His tongue', 'score': true},
-      {'answerText': 'His leg', 'score': false},
-      {'answerText': 'His butt', 'score': false},
+      {'answerText': 'মাইক্রোসপট ', 'score': true},
+      {'answerText': 'অ্যাপেল ', 'score': false},
+      {'answerText': 'আই বি এম', 'score': false},
     ],
   },
   {
-    'question': 'In which country are Panama hats made?',
+    'question': 'কোনটি মধ্যস্তরের ভাষা??',
     'answers': [
-      {'answerText': 'Ecuador', 'score': true},
-      {'answerText': 'Panama (duh)', 'score': false},
-      {'answerText': 'Portugal', 'score': false},
+      {'answerText': 'ওরাকল ', 'score': true},
+      {'answerText': 'তৃতীয় প্রজন্মের', 'score': false},
+      {'answerText': 'প্রথম প্রজন্ম', 'score': false},
     ],
   },
   {
-    'question': 'From which country do French fries originate?',
+    'question': 'C প্রোগ্রাম তৈরির সাথে কে জড়িত?',
     'answers': [
-      {'answerText': 'Belgium', 'score': true},
-      {'answerText': 'France (duh)', 'score': false},
-      {'answerText': 'Switzerland', 'score': false},
+      {'answerText': ' ডেনিস রিচ', 'score': true},
+      {'answerText': 'টিম বার্নসলি ', 'score': false},
+      {'answerText': 'ডগলাস রিচ', 'score': false},
     ],
   },
   {
-    'question': 'Which sea creature has three hearts?',
+    'question': 'Python প্রোগ্রাম তৈরি করেণ কে?',
     'answers': [
-      {'answerText': 'Great White Sharks', 'score': false},
-      {'answerText': 'Killer Whales', 'score': false},
-      {'answerText': 'The Octopus', 'score': true},
+      {'answerText': 'Martin Cooper', 'score': false},
+      {'answerText': 'Dennis Ritchie ', 'score': false},
+      {'answerText': 'Guido Van Rossum ', 'score': true},
     ],
   },
   {
-    'question': 'Which European country eats the most chocolate per capita?',
+    'question': 'প্রোগ্রামের ভুলকে কী বলে?',
     'answers': [
-      {'answerText': 'Belgium', 'score': false},
-      {'answerText': 'The Netherlands', 'score': false},
-      {'answerText': 'Switzerland', 'score': true},
+      {'answerText': 'Dagg', 'score': false},
+      {'answerText': 'Debugging', 'score': false},
+      {'answerText': 'Bug', 'score': true},
+    ],
+  },
+  {
+    'question': 'পঅবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং এর বৈশিষ্ট কয়টি?',
+    'answers': [
+      {'answerText': '৪টি', 'score': false},
+      {'answerText': '২টি', 'score': false},
+      {'answerText': '৩টি ', 'score': true},
     ],
   },
 ];

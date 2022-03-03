@@ -23,6 +23,7 @@ class Answer extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.blue),
           color: answercolor,
+
         ),
         child: Text(answerText,
           style: TextStyle(fontSize: 24,color: Color(0xff071dac)),
